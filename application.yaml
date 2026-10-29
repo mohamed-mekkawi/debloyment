@@ -7,10 +7,19 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
+
   source:
     repoURL: https://github.com/mohamed-mekkawi/debloyment.git
     targetRevision: main
     path: .
+
   destination:
     server: https://kubernetes.default.svc
     namespace: netlab
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
