@@ -1,0 +1,26 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: debloyment-app
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/mohamed-mekkawi/debloyment.git
+    targetRevision: main
+    path: .
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: netlab
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
